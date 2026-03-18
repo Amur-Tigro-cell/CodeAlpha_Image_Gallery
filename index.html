@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shiro Oni - Anime Streaming Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-torii-gate"></i>
+                    <span>Shiro Oni</span>
+                </div>
+                <div class="header-controls">
+                    <div class="theme-toggle">
+                        <i class="fas fa-moon" id="theme-icon"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero">
+                <h1 class="hero-title">Discover Amazing Anime</h1>
+                <p class="hero-subtitle">Stream your favorite series and movies</p>
+                <div class="anime-decorations">
+                    <span class="decoration-item">🌸</span>
+                    <span class="decoration-item">⚡</span>
+                    <span class="decoration-item">🌙</span>
+                    <span class="decoration-item">✨</span>
+                    <span class="decoration-item">🗾</span>
+                </div>
+                
+                <!-- Search Bar -->
+                <div class="search-container">
+                    <div class="search-bar">
+                        <i class="fas fa-compass"></i>
+                        <input type="text" id="search-input" placeholder="Explore anime worlds...">
+                    </div>
+                </div>
+
+                <!-- Filter Buttons -->
+                <div class="filter-container">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="action">Action</button>
+                    <button class="filter-btn" data-filter="comedy">Comedy</button>
+                    <button class="filter-btn" data-filter="drama">Drama</button>
+                    <button class="filter-btn" data-filter="fantasy">Fantasy</button>
+                </div>
+            </section>
+
+            <!-- Anime Grid -->
+            <section class="anime-grid" id="anime-grid">
+                <!-- Anime cards will be dynamically inserted here -->
+            </section>
+        </div>
+    </main>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal" id="modal">
+            <button class="modal-close" id="modal-close">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="modal-content">
+                <div class="modal-poster">
+                    <img id="modal-poster" src="" alt="">
+                </div>
+                <div class="modal-info">
+                    <h2 id="modal-title"></h2>
+                    <div class="modal-genres" id="modal-genres"></div>
+                    <p id="modal-description"></p>
+                    <div class="modal-actions">
+                        <button class="btn-trailer" id="btn-trailer">
+                            <i class="fas fa-play"></i>
+                            Watch Trailer
+                        </button>
+                        <button class="btn-favorite" id="modal-favorite">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Arrows -->
+            <button class="modal-nav modal-prev" id="modal-prev">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="modal-nav modal-next" id="modal-next">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
