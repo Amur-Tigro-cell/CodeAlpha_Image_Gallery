@@ -6,7 +6,7 @@ const animeData = [
         genre: "action",
         poster: "https://picsum.photos/seed/naruto/300/450",
         description: "Follow Naruto Uzumaki, a young ninja with a dream to become the strongest ninja and leader of his village. An epic journey of friendship, perseverance, and the pursuit of dreams.",
-        trailer: "https://www.youtube.com/watch?v=3jQrN5y8_5I"
+        trailer: "https://www.youtube.com/watch?v=36xmoU9J-4o"
     },
     {
         id: 2,
@@ -14,7 +14,7 @@ const animeData = [
         genre: "action",
         poster: "https://picsum.photos/seed/aot/300/450",
         description: "Humanity fights for survival against giant humanoid Titans that devour humans. A dark, intense story of war, sacrifice, and the mysteries of a world behind walls.",
-        trailer: "https://www.youtube.com/watch?v=MGRm2IiiO_s"
+        trailer: "https://www.youtube.com/watch?v=B8GXml2tElo"
     },
     {
         id: 3,
