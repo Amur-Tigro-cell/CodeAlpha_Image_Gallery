@@ -18,7 +18,7 @@
     --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
     --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
     --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
-    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition: all 0.3s ease;
 }
 
 body.light-theme {
@@ -35,39 +35,36 @@ body.light-theme {
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: var(--bg-primary);
+    background: var(--bg-primary);
     color: var(--text-primary);
     line-height: 1.6;
     min-height: 100vh;
     transition: var(--transition);
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-/* Header */
-.header {
+/* Sticky Navbar */
+.navbar {
+    position: sticky;
+    top: 0;
     background: rgba(15, 23, 42, 0.95);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border-color);
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    z-index: 1000;
     transition: var(--transition);
 }
 
-.light-theme .header {
+.light-theme .navbar {
     background: rgba(248, 250, 252, 0.95);
 }
 
-.header-content {
+.navbar-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 1rem 0;
+    justify-content: space-between;
+    gap: 2rem;
 }
 
 .logo {
@@ -80,6 +77,7 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    flex-shrink: 0;
 }
 
 .logo i {
@@ -87,6 +85,51 @@ body {
     -webkit-text-fill-color: var(--accent-primary);
 }
 
+/* Search Bar */
+.search-container {
+    flex: 1;
+    max-width: 500px;
+}
+
+.search-bar {
+    position: relative;
+    background: rgba(30, 41, 59, 0.9);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: 50px;
+    padding: 0.75rem 1.25rem;
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+}
+
+.search-bar:hover {
+    border-color: rgba(139, 92, 246, 0.5);
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
+}
+
+.search-bar i {
+    position: absolute;
+    left: 1.25rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.search-bar input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 0.9rem;
+    padding-left: 2rem;
+    outline: none;
+}
+
+.search-bar input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Theme Toggle */
 .theme-toggle {
     background: var(--bg-card);
     border: 1px solid var(--border-color);
@@ -98,6 +141,7 @@ body {
     justify-content: center;
     cursor: pointer;
     transition: var(--transition);
+    flex-shrink: 0;
 }
 
 .theme-toggle:hover {
@@ -105,24 +149,16 @@ body {
     transform: scale(1.1);
 }
 
+/* Main Content */
+.main-content {
+    padding: 2rem 0;
+}
+
 /* Hero Section */
 .hero {
     text-align: center;
-    padding: 4rem 0 2rem;
-    position: relative;
-    overflow: hidden;
-}
-
-.hero::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
-    animation: float 20s ease-in-out infinite;
-    pointer-events: none;
+    padding: 4rem 2rem 2rem;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, transparent 100%);
 }
 
 .hero-title {
@@ -134,173 +170,115 @@ body {
     -webkit-text-fill-color: transparent;
     background-clip: text;
     animation: fadeInUp 0.8s ease;
-    position: relative;
-    z-index: 2;
 }
 
 .hero-subtitle {
     font-size: 1.2rem;
     color: var(--text-secondary);
-    margin-bottom: 3rem;
-    animation: fadeInUp 0.8s ease 0.2s both;
-    position: relative;
-    z-index: 2;
-}
-
-.anime-decorations {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
     margin-bottom: 2rem;
-    animation: fadeInUp 0.8s ease 0.4s both;
-    position: relative;
-    z-index: 2;
+    animation: fadeInUp 0.8s ease 0.2s both;
 }
 
-.decoration-item {
-    font-size: 2rem;
-    opacity: 0.7;
-    animation: bounce 3s ease-in-out infinite;
-    transition: var(--transition);
-}
-
-.decoration-item:nth-child(1) { animation-delay: 0s; }
-.decoration-item:nth-child(2) { animation-delay: 0.5s; }
-.decoration-item:nth-child(3) { animation-delay: 1s; }
-.decoration-item:nth-child(4) { animation-delay: 1.5s; }
-.decoration-item:nth-child(5) { animation-delay: 2s; }
-
-.decoration-item:hover {
-    transform: scale(1.3) rotate(10deg);
-    opacity: 1;
-}
-
-/* Search Bar */
-.search-container {
-    max-width: 500px;
-    margin: 0 auto 3rem;
-    animation: fadeInUp 0.8s ease 0.4s both;
-}
-
-.search-bar {
-    position: relative;
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 50px;
-    padding: 1rem 1.5rem;
-    backdrop-filter: blur(10px);
-    box-shadow: var(--shadow-md);
-}
-
-.search-bar i {
-    position: absolute;
-    left: 1.5rem;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--text-secondary);
-}
-
-.search-bar input {
-    width: 100%;
-    background: transparent;
-    border: none;
-    color: var(--text-primary);
-    font-size: 1rem;
-    padding-left: 2rem;
-    outline: none;
-}
-
-.search-bar input::placeholder {
-    color: var(--text-secondary);
-}
-
-/* Filter Buttons */
-.filter-container {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
+/* Slider Sections */
+.slider-section {
     margin-bottom: 3rem;
-    flex-wrap: wrap;
-    animation: fadeInUp 0.8s ease 0.6s both;
+    padding: 0 2rem;
 }
 
-.filter-btn {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 50px;
-    padding: 0.75rem 1.5rem;
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.section-title {
+    font-size: 1.8rem;
+    font-weight: 600;
     color: var(--text-primary);
-    font-size: 0.9rem;
-    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.slider-controls {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.slider-btn {
+    background: rgba(139, 92, 246, 0.2);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
     transition: var(--transition);
-    backdrop-filter: blur(10px);
+    color: var(--text-primary);
 }
 
-.filter-btn:hover {
-    background: var(--accent-primary);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+.slider-btn:hover {
+    background: rgba(139, 92, 246, 0.4);
+    transform: scale(1.1);
 }
 
-.filter-btn.active {
-    background: var(--accent-gradient);
-    border-color: transparent;
-    box-shadow: var(--shadow-lg);
+.slider-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
 }
 
-/* Anime Grid */
-.anime-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    margin-bottom: 4rem;
-    animation: fadeIn 1s ease 0.8s both;
+/* Slider Container */
+.slider-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
 }
 
-/* Anime Card */
+.slider-track {
+    display: flex;
+    gap: 1rem;
+    transition: transform 0.5s ease;
+    scroll-behavior: smooth;
+}
+
+/* Hide Scrollbar */
+.slider-container::-webkit-scrollbar {
+    display: none;
+}
+
+.slider-container {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Anime Cards */
 .anime-card {
+    flex: 0 0 auto;
+    width: 200px;
     background: var(--bg-card);
     border: 1px solid var(--border-color);
-    border-radius: 16px;
+    border-radius: 12px;
     overflow: hidden;
-    transition: var(--transition);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
     backdrop-filter: blur(10px);
     box-shadow: var(--shadow-sm);
-    cursor: pointer;
-    position: relative;
-}
-
-.anime-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, transparent 0%, rgba(139, 92, 246, 0.05) 50%, transparent 100%);
-    opacity: 0;
-    transition: var(--transition);
-    pointer-events: none;
-}
-
-.anime-card:hover::before {
-    opacity: 1;
 }
 
 .anime-card:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 12px 40px rgba(139, 92, 246, 0.3);
+    transform: scale(1.05);
+    box-shadow: 0 15px 35px rgba(139, 92, 246, 0.3);
     border-color: rgba(139, 92, 246, 0.3);
-}
-
-.anime-card.hidden {
-    display: none;
+    z-index: 10;
 }
 
 .anime-poster {
     position: relative;
-    height: 400px;
+    height: 280px;
     overflow: hidden;
 }
 
@@ -326,7 +304,7 @@ body {
     transition: var(--transition);
     display: flex;
     align-items: flex-end;
-    padding: 1.5rem;
+    padding: 1rem;
 }
 
 .anime-card:hover .anime-overlay {
@@ -337,12 +315,13 @@ body {
     background: var(--accent-gradient);
     border: none;
     border-radius: 8px;
-    padding: 0.75rem 1.5rem;
+    padding: 0.5rem 1rem;
     color: white;
     font-weight: 600;
     cursor: pointer;
     transform: translateY(20px);
     transition: var(--transition);
+    font-size: 0.8rem;
 }
 
 .anime-card:hover .view-details-btn {
@@ -350,14 +329,19 @@ body {
 }
 
 .anime-info {
-    padding: 1.5rem;
+    padding: 1rem;
 }
 
 .anime-title {
-    font-size: 1.2rem;
+    font-size: 0.9rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
     color: var(--text-primary);
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .anime-meta {
@@ -369,45 +353,31 @@ body {
 .anime-genre {
     background: var(--accent-gradient);
     color: white;
-    padding: 0.25rem 0.75rem;
-    border-radius: 20px;
-    font-size: 0.8rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.7rem;
     font-weight: 500;
-    position: relative;
-    overflow: hidden;
 }
 
-.anime-genre::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-    transition: left 0.5s ease;
-}
-
-.anime-genre:hover::before {
-    left: 100%;
-}
-
-.favorite-btn {
+.heart {
     background: transparent;
     border: none;
-    color: var(--text-secondary);
-    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1rem;
     cursor: pointer;
     transition: var(--transition);
+    padding: 0;
+    display: inline-block;
 }
 
-.favorite-btn:hover {
-    color: #ef4444;
+.heart:hover {
     transform: scale(1.2);
+    color: #ef4444;
 }
 
-.favorite-btn.active {
+.heart.active {
     color: #ef4444;
+    animation: heartBeat 0.3s ease;
 }
 
 /* Modal */
@@ -422,10 +392,10 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1000;
+    z-index: 2000;
     opacity: 0;
     visibility: hidden;
-    transition: var(--transition);
+    transition: all 0.3s ease;
 }
 
 .modal-overlay.active {
@@ -443,8 +413,9 @@ body {
     overflow-y: auto;
     position: relative;
     transform: scale(0.9);
-    transition: var(--transition);
+    transition: all 0.3s ease;
     box-shadow: var(--shadow-lg);
+    animation: fadeIn 0.3s ease;
 }
 
 .modal-overlay.active .modal {
@@ -561,6 +532,10 @@ body {
     color: #ef4444;
 }
 
+.modal-heart {
+    font-size: 1.2rem;
+}
+
 .modal-nav {
     position: absolute;
     top: 50%;
@@ -593,12 +568,8 @@ body {
 
 /* Animations */
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 @keyframes fadeInUp {
@@ -612,32 +583,28 @@ body {
     }
 }
 
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
-        transform: translateY(0);
-    }
-    40% {
-        transform: translateY(-10px);
-    }
-    60% {
-        transform: translateY(-5px);
-    }
-}
-
-@keyframes float {
-    0%, 100% {
-        transform: translate(-50%, -50%) rotate(0deg);
-    }
-    33% {
-        transform: translate(-45%, -55%) rotate(120deg);
-    }
-    66% {
-        transform: translate(-55%, -45%) rotate(240deg);
-    }
+@keyframes heartBeat {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.3); }
+    50% { transform: scale(1); }
+    75% { transform: scale(1.2); }
+    100% { transform: scale(1); }
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    .navbar-container {
+        padding: 1rem;
+        flex-wrap: wrap;
+    }
+    
+    .search-container {
+        order: 3;
+        flex-basis: 100%;
+        max-width: none;
+        margin-top: 1rem;
+    }
+    
     .hero-title {
         font-size: 2rem;
     }
@@ -646,9 +613,22 @@ body {
         font-size: 1rem;
     }
     
-    .anime-grid {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 1.5rem;
+    .slider-section {
+        padding: 0 1rem;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .anime-card {
+        width: 150px;
+    }
+    
+    .anime-poster {
+        height: 220px;
     }
     
     .modal-content {
@@ -661,39 +641,6 @@ body {
         font-size: 1.5rem;
     }
     
-    .filter-container {
-        gap: 0.5rem;
-    }
-    
-    .filter-btn {
-        padding: 0.5rem 1rem;
-        font-size: 0.8rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .container {
-        padding: 0 15px;
-    }
-    
-    .hero {
-        padding: 2rem 0 1rem;
-    }
-    
-    .anime-grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-    }
-    
-    .anime-poster {
-        height: 300px;
-    }
-    
-    .modal {
-        width: 95%;
-        max-height: 95vh;
-    }
-    
     .modal-actions {
         flex-direction: column;
     }
@@ -701,5 +648,28 @@ body {
     .btn-trailer {
         width: 100%;
         justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding: 2rem 1rem 1rem;
+    }
+    
+    .anime-card {
+        width: 120px;
+    }
+    
+    .anime-poster {
+        height: 180px;
+    }
+    
+    .anime-title {
+        font-size: 0.8rem;
+    }
+    
+    .modal {
+        width: 95%;
+        max-height: 95vh;
     }
 }

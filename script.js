@@ -125,13 +125,11 @@ const animeData = [
 // Global Variables
 let currentAnimeIndex = 0;
 let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-let currentFilter = 'all';
 let searchTerm = '';
+let sliderPositions = {};
 
 // DOM Elements
-const animeGrid = document.getElementById('anime-grid');
-const searchInput = document.getElementById('search-input');
-const filterButtons = document.querySelectorAll('.filter-btn');
+const searchInput = document.getElementById('search');
 const modalOverlay = document.getElementById('modal-overlay');
 const modal = document.getElementById('modal');
 const modalClose = document.getElementById('modal-close');
@@ -141,32 +139,59 @@ const themeIcon = document.getElementById('theme-icon');
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
-    renderAnimeGrid();
+    initializeSliders();
     setupEventListeners();
     loadTheme();
 });
 
-// Render Anime Grid
-function renderAnimeGrid() {
-    animeGrid.innerHTML = '';
+// Initialize Sliders
+function initializeSliders() {
+    const sections = ['trending', 'action', 'comedy', 'drama', 'fantasy'];
     
-    const filteredAnime = animeData.filter(anime => {
-        const matchesFilter = currentFilter === 'all' || anime.genre === currentFilter;
-        const matchesSearch = anime.title.toLowerCase().includes(searchTerm.toLowerCase());
-        return matchesFilter && matchesSearch;
-    });
-
-    filteredAnime.forEach((anime, index) => {
-        const animeCard = createAnimeCard(anime, index);
-        animeGrid.appendChild(animeCard);
+    sections.forEach(section => {
+        const sliderTrack = document.querySelector(`#${section}-slider .slider-track`);
+        if (sliderTrack) {
+            sliderPositions[section] = 0;
+            renderSliderSection(section, sliderTrack);
+        }
     });
 }
 
+// Render Slider Section
+function renderSliderSection(section, sliderTrack) {
+    sliderTrack.innerHTML = '';
+    
+    let animeInSection = animeData;
+    
+    // Filter by genre for specific sections (not trending)
+    if (section !== 'trending') {
+        animeInSection = animeData.filter(anime => anime.genre === section);
+    }
+    
+    // Apply search filter
+    if (searchTerm) {
+        animeInSection = animeInSection.filter(anime => 
+            anime.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            anime.description.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+    }
+    
+    animeInSection.forEach((anime, index) => {
+        const animeCard = createAnimeCard(anime, index, section);
+        sliderTrack.appendChild(animeCard);
+    });
+    
+    // Reset slider position
+    sliderPositions[section] = 0;
+    updateSliderPosition(section);
+}
+
 // Create Anime Card
-function createAnimeCard(anime, index) {
+function createAnimeCard(anime, index, section) {
     const card = document.createElement('div');
     card.className = 'anime-card';
-    card.dataset.index = index;
+    card.dataset.animeId = anime.id;
+    card.dataset.section = section;
     
     const isFavorite = favorites.includes(anime.id);
     
@@ -174,7 +199,7 @@ function createAnimeCard(anime, index) {
         <div class="anime-poster">
             <img src="${anime.poster}" alt="${anime.title}" loading="lazy">
             <div class="anime-overlay">
-                <button class="view-details-btn" data-index="${index}">
+                <button class="view-details-btn" data-anime-id="${anime.id}">
                     View Details
                 </button>
             </div>
@@ -183,9 +208,9 @@ function createAnimeCard(anime, index) {
             <h3 class="anime-title">${anime.title}</h3>
             <div class="anime-meta">
                 <span class="anime-genre">${anime.genre.charAt(0).toUpperCase() + anime.genre.slice(1)}</span>
-                <button class="favorite-btn ${isFavorite ? 'active' : ''}" data-id="${anime.id}">
-                    <i class="${isFavorite ? 'fas' : 'far'} fa-heart"></i>
-                </button>
+                <span class="heart ${isFavorite ? 'active' : ''}" onclick="toggleLike(this)" data-anime-id="${anime.id}">
+                    ${isFavorite ? '❤️' : '🤍'}
+                </span>
             </div>
         </div>
     `;
@@ -196,56 +221,51 @@ function createAnimeCard(anime, index) {
 // Setup Event Listeners
 function setupEventListeners() {
     // Search functionality
-    searchInput.addEventListener('input', (e) => {
-        searchTerm = e.target.value;
-        renderAnimeGrid();
+    searchInput.addEventListener('input', function () {
+        searchTerm = this.value.toLowerCase();
+        initializeSliders();
     });
 
-    // Filter buttons
-    filterButtons.forEach(btn => {
+    // Slider navigation buttons
+    document.querySelectorAll('.slider-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-            filterButtons.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            currentFilter = btn.dataset.filter;
-            renderAnimeGrid();
+            const section = btn.dataset.section;
+            const direction = btn.classList.contains('prev') ? -1 : 1;
+            navigateSlider(section, direction);
         });
     });
 
-    // Anime card clicks (event delegation)
-    animeGrid.addEventListener('click', (e) => {
+    // Anime card clicks
+    document.addEventListener('click', (e) => {
+        // Handle heart clicks
+        if (e.target.classList.contains('heart')) {
+            toggleLike(e.target);
+            return;
+        }
+        
+        // Handle view details clicks
         if (e.target.classList.contains('view-details-btn')) {
-            const index = parseInt(e.target.dataset.index);
-            openModal(index);
-        } else if (e.target.closest('.favorite-btn')) {
-            const btn = e.target.closest('.favorite-btn');
-            const animeId = parseInt(btn.dataset.id);
-            toggleFavorite(btn, animeId);
-        } else if (e.target.closest('.anime-card')) {
-            const card = e.target.closest('.anime-card');
-            const index = parseInt(card.dataset.index);
-            openModal(index);
+            const animeId = parseInt(e.target.dataset.animeId);
+            openModal(animeId);
+            return;
+        }
+        
+        // Handle card clicks
+        const card = e.target.closest('.anime-card');
+        if (card) {
+            const animeId = parseInt(card.dataset.animeId);
+            openModal(animeId);
         }
     });
 
     // Modal controls
     modalClose.addEventListener('click', closeModal);
-    modalOverlay.addEventListener('click', (e) => {
-        if (e.target === modalOverlay) {
-            closeModal();
-        }
-    });
-
-    modalPrev.addEventListener('click', () => {
-        navigateModal(-1);
-    });
-
-    modalNext.addEventListener('click', () => {
-        navigateModal(1);
-    });
+    modalPrev.addEventListener('click', () => navigateModal(-1));
+    modalNext.addEventListener('click', () => navigateModal(1));
 
     // Keyboard navigation
     document.addEventListener('keydown', (e) => {
-        if (modalOverlay.classList.contains('active')) {
+        if (document.getElementById("modal-overlay").style.display === "flex") {
             if (e.key === 'Escape') closeModal();
             if (e.key === 'ArrowLeft') navigateModal(-1);
             if (e.key === 'ArrowRight') navigateModal(1);
@@ -257,40 +277,60 @@ function setupEventListeners() {
 
     // Modal favorite button
     document.getElementById('modal-favorite').addEventListener('click', () => {
-        const anime = getFilteredAnime()[currentAnimeIndex];
-        const btn = document.getElementById('modal-favorite');
-        toggleFavorite(btn, anime.id);
+        const modalHeart = document.querySelector('.modal-heart');
+        toggleLike(modalHeart);
     });
 
     // Trailer button
     document.getElementById('btn-trailer').addEventListener('click', () => {
-        const anime = getFilteredAnime()[currentAnimeIndex];
-        window.open(anime.trailer, '_blank');
+        const anime = animeData.find(a => a.id === currentAnimeIndex);
+        if (anime) {
+            window.open(anime.trailer, '_blank');
+        }
     });
 }
 
-// Get Filtered Anime
-function getFilteredAnime() {
-    return animeData.filter(anime => {
-        const matchesFilter = currentFilter === 'all' || anime.genre === currentFilter;
-        const matchesSearch = anime.title.toLowerCase().includes(searchTerm.toLowerCase());
-        return matchesFilter && matchesSearch;
-    });
+// Slider Navigation
+function navigateSlider(section, direction) {
+    const sliderTrack = document.querySelector(`#${section}-slider .slider-track`);
+    const cards = sliderTrack.querySelectorAll('.anime-card');
+    const cardWidth = 216; // 200px + 16px gap
+    const visibleCards = Math.floor(sliderTrack.parentElement.offsetWidth / cardWidth);
+    const maxScroll = Math.max(0, cards.length - visibleCards);
+    
+    sliderPositions[section] += direction;
+    sliderPositions[section] = Math.max(0, Math.min(sliderPositions[section], maxScroll));
+    
+    updateSliderPosition(section);
+    updateSliderButtons(section, maxScroll);
 }
 
-// Open Modal
-function openModal(index) {
-    const filteredAnime = getFilteredAnime();
-    if (filteredAnime.length === 0) return;
+function updateSliderPosition(section) {
+    const sliderTrack = document.querySelector(`#${section}-slider .slider-track`);
+    const cardWidth = 216;
+    sliderTrack.style.transform = `translateX(-${sliderPositions[section] * cardWidth}px)`;
+}
+
+function updateSliderButtons(section, maxScroll) {
+    const prevBtn = document.querySelector(`.slider-btn.prev[data-section="${section}"]`);
+    const nextBtn = document.querySelector(`.slider-btn.next[data-section="${section}"]`);
     
-    currentAnimeIndex = index;
-    const anime = filteredAnime[index];
+    prevBtn.disabled = sliderPositions[section] <= 0;
+    nextBtn.disabled = sliderPositions[section] >= maxScroll;
+}
+
+// Premium Modal Functions
+function openModal(animeId) {
+    const anime = animeData.find(a => a.id === animeId);
+    if (!anime) return;
     
-    // Update modal content
-    document.getElementById('modal-poster').src = anime.poster;
-    document.getElementById('modal-poster').alt = anime.title;
-    document.getElementById('modal-title').textContent = anime.title;
-    document.getElementById('modal-description').textContent = anime.description;
+    currentAnimeIndex = animeId;
+    
+    document.getElementById("modal-overlay").style.display = "flex";
+    document.getElementById("modal-poster").src = anime.poster;
+    document.getElementById("modal-poster").alt = anime.title;
+    document.getElementById("modal-title").innerText = anime.title;
+    document.getElementById("modal-description").innerText = anime.description;
     
     // Update genres
     const genresContainer = document.getElementById('modal-genres');
@@ -299,63 +339,70 @@ function openModal(index) {
     `;
     
     // Update favorite button
-    const modalFavoriteBtn = document.getElementById('modal-favorite');
+    const modalHeart = document.querySelector('.modal-heart');
     const isFavorite = favorites.includes(anime.id);
-    modalFavoriteBtn.className = `btn-favorite ${isFavorite ? 'active' : ''}`;
-    modalFavoriteBtn.innerHTML = `<i class="${isFavorite ? 'fas' : 'far'} fa-heart"></i>`;
+    modalHeart.className = `modal-heart ${isFavorite ? 'active' : ''}`;
+    modalHeart.textContent = isFavorite ? '❤️' : '🤍';
+    modalHeart.dataset.animeId = anime.id;
     
-    // Show modal
-    modalOverlay.classList.add('active');
-    document.body.style.overflow = 'hidden';
+    // Add animation classes
+    setTimeout(() => {
+        document.getElementById("modal-overlay").classList.add("active");
+    }, 10);
+    
+    // Prevent body scroll
+    document.body.style.overflow = "hidden";
 }
 
-// Close Modal
 function closeModal() {
-    modalOverlay.classList.remove('active');
-    document.body.style.overflow = '';
+    document.getElementById("modal-overlay").classList.remove("active");
+    
+    // Allow body scroll after animation
+    setTimeout(() => {
+        document.getElementById("modal-overlay").style.display = "none";
+        document.body.style.overflow = "";
+    }, 300);
 }
 
 // Navigate Modal
 function navigateModal(direction) {
-    const filteredAnime = getFilteredAnime();
-    if (filteredAnime.length === 0) return;
-    
-    currentAnimeIndex += direction;
+    const currentIndex = animeData.findIndex(a => a.id === currentAnimeIndex);
+    let newIndex = currentIndex + direction;
     
     // Wrap around
-    if (currentAnimeIndex < 0) {
-        currentAnimeIndex = filteredAnime.length - 1;
-    } else if (currentAnimeIndex >= filteredAnime.length) {
-        currentAnimeIndex = 0;
-    }
+    if (newIndex < 0) newIndex = animeData.length - 1;
+    if (newIndex >= animeData.length) newIndex = 0;
     
-    openModal(currentAnimeIndex);
+    openModal(animeData[newIndex].id);
 }
 
-// Toggle Favorite
-function toggleFavorite(btn, animeId) {
-    const isFavorite = favorites.includes(animeId);
+// Favorite Toggle
+function toggleLike(el) {
+    const animeId = parseInt(el.dataset.animeId);
+    if (!animeId) return;
     
-    if (isFavorite) {
-        favorites = favorites.filter(id => id !== animeId);
-        btn.classList.remove('active');
-        btn.innerHTML = '<i class="far fa-heart"></i>';
-    } else {
+    el.classList.toggle("active");
+    
+    // Update favorites array
+    if (el.classList.contains("active")) {
         favorites.push(animeId);
-        btn.classList.add('active');
-        btn.innerHTML = '<i class="fas fa-heart"></i>';
+        el.innerHTML = "❤️";
+    } else {
+        favorites = favorites.filter(id => id !== animeId);
+        el.innerHTML = "🤍";
     }
     
+    // Save to localStorage
     localStorage.setItem('favorites', JSON.stringify(favorites));
     
     // Update all favorite buttons for this anime
-    document.querySelectorAll(`.favorite-btn[data-id="${animeId}"]`).forEach(button => {
-        if (isFavorite) {
-            button.classList.remove('active');
-            button.innerHTML = '<i class="far fa-heart"></i>';
+    document.querySelectorAll(`.heart[data-anime-id="${animeId}"]`).forEach(heart => {
+        if (el.classList.contains("active")) {
+            heart.classList.add('active');
+            heart.innerHTML = '❤️';
         } else {
-            button.classList.add('active');
-            button.innerHTML = '<i class="fas fa-heart"></i>';
+            heart.classList.remove('active');
+            heart.innerHTML = '🤍';
         }
     });
 }
@@ -385,47 +432,33 @@ function loadTheme() {
     }
 }
 
-// Add smooth scroll behavior
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
-
-// Add loading animation for images
+// Add smooth scroll behavior for mouse wheel on sliders
 document.addEventListener('DOMContentLoaded', () => {
-    const images = document.querySelectorAll('img');
-    images.forEach(img => {
-        img.addEventListener('load', () => {
-            img.style.opacity = '1';
+    document.querySelectorAll('.slider-container').forEach(container => {
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        container.addEventListener('mousedown', (e) => {
+            isDown = true;
+            startX = e.pageX - container.offsetLeft;
+            scrollLeft = container.scrollLeft;
         });
-        img.style.opacity = '0';
-        img.style.transition = 'opacity 0.3s ease';
+
+        container.addEventListener('mouseleave', () => {
+            isDown = false;
+        });
+
+        container.addEventListener('mouseup', () => {
+            isDown = false;
+        });
+
+        container.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - container.offsetLeft;
+            const walk = (x - startX) * 2;
+            container.scrollLeft = scrollLeft - walk;
+        });
     });
 });
-
-// Performance optimization: Debounce search
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-
-// Apply debounce to search
-searchInput.addEventListener('input', debounce((e) => {
-    searchTerm = e.target.value;
-    renderAnimeGrid();
-}, 300));

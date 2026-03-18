@@ -3,73 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shiro Oni - Anime Streaming Platform</title>
+    <title>AniGallery 🎬 - Anime Streaming Platform</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <i class="fas fa-torii-gate"></i>
-                    <span>Shiro Oni</span>
+    <!-- Sticky Navbar -->
+    <header class="navbar">
+        <div class="navbar-container">
+            <div class="logo">
+                <i class="fas fa-play-circle"></i>
+                <span>AniGallery 🎬</span>
+            </div>
+            
+            <!-- Search Bar -->
+            <div class="search-container">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="search" placeholder="Search anime...">
                 </div>
-                <div class="header-controls">
-                    <div class="theme-toggle">
-                        <i class="fas fa-moon" id="theme-icon"></i>
-                    </div>
-                </div>
+            </div>
+            
+            <!-- Theme Toggle -->
+            <div class="theme-toggle">
+                <i class="fas fa-moon" id="theme-icon"></i>
             </div>
         </div>
     </header>
 
     <!-- Main Content -->
-    <main class="main">
-        <div class="container">
-            <!-- Hero Section -->
-            <section class="hero">
-                <h1 class="hero-title">Discover Amazing Anime</h1>
-                <p class="hero-subtitle">Stream your favorite anime</p>
-                <div class="anime-decorations">
-                    <span class="decoration-item">🌸</span>
-                    <span class="decoration-item">⚡</span>
-                    <span class="decoration-item">🌙</span>
-                    <span class="decoration-item">✨</span>
-                    <span class="decoration-item">🗾</span>
-                </div>
-                
-                <!-- Search Bar -->
-                <div class="search-container">
-                    <div class="search-bar">
-                        <i class="fas fa-compass"></i>
-                        <input type="text" id="search-input" placeholder="Explore anime...">
-                    </div>
-                </div>
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1 class="hero-title">Discover Amazing Anime</h1>
+            <p class="hero-subtitle">Stream your favorite anime</p>
+        </section>
 
-                <!-- Filter Buttons -->
-                <div class="filter-container">
-                    <button class="filter-btn active" data-filter="all">All</button>
-                    <button class="filter-btn" data-filter="action">Action</button>
-                    <button class="filter-btn" data-filter="comedy">Comedy</button>
-                    <button class="filter-btn" data-filter="drama">Drama</button>
-                    <button class="filter-btn" data-filter="fantasy">Fantasy</button>
+        <!-- Horizontal Slider Sections -->
+        <section class="slider-section">
+            <div class="section-header">
+                <h2 class="section-title">🔥 Trending</h2>
+                <div class="slider-controls">
+                    <button class="slider-btn prev" data-section="trending">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="slider-btn next" data-section="trending">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
                 </div>
-            </section>
+            </div>
+            <div class="slider-container" id="trending-slider">
+                <div class="slider-track">
+                    <!-- Anime cards will be dynamically inserted here -->
+                </div>
+            </div>
+        </section>
 
-            <!-- Anime Grid -->
-            <section class="anime-grid" id="anime-grid">
-                <!-- Anime cards will be dynamically inserted here -->
-            </section>
-        </div>
+        <section class="slider-section">
+            <div class="section-header">
+                <h2 class="section-title">� Action</h2>
+                <div class="slider-controls">
+                    <button class="slider-btn prev" data-section="action">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="slider-btn next" data-section="action">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="slider-container" id="action-slider">
+                <div class="slider-track">
+                    <!-- Anime cards will be dynamically inserted here -->
+                </div>
+            </div>
+        </section>
+
+        <section class="slider-section">
+            <div class="section-header">
+                <h2 class="section-title">😂 Comedy</h2>
+                <div class="slider-controls">
+                    <button class="slider-btn prev" data-section="comedy">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="slider-btn next" data-section="comedy">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="slider-container" id="comedy-slider">
+                <div class="slider-track">
+                    <!-- Anime cards will be dynamically inserted here -->
+                </div>
+            </div>
+        </section>
+
+        <section class="slider-section">
+            <div class="section-header">
+                <h2 class="section-title">🎭 Drama</h2>
+                <div class="slider-controls">
+                    <button class="slider-btn prev" data-section="drama">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="slider-btn next" data-section="drama">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="slider-container" id="drama-slider">
+                <div class="slider-track">
+                    <!-- Anime cards will be dynamically inserted here -->
+                </div>
+            </div>
+        </section>
+
+        <section class="slider-section">
+            <div class="section-header">
+                <h2 class="section-title">✨ Fantasy</h2>
+                <div class="slider-controls">
+                    <button class="slider-btn prev" data-section="fantasy">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="slider-btn next" data-section="fantasy">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="slider-container" id="fantasy-slider">
+                <div class="slider-track">
+                    <!-- Anime cards will be dynamically inserted here -->
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- Modal -->
-    <div class="modal-overlay" id="modal-overlay">
+    <div class="modal-overlay" id="modal-overlay" onclick="if(event.target === this) closeModal()">
         <div class="modal" id="modal">
-            <button class="modal-close" id="modal-close">
+            <button class="modal-close" id="modal-close" onclick="closeModal()">
                 <i class="fas fa-times"></i>
             </button>
             
@@ -84,10 +155,10 @@
                     <div class="modal-actions">
                         <button class="btn-trailer" id="btn-trailer">
                             <i class="fas fa-play"></i>
-                            Watch Trailer
+                            ▶ Watch Trailer
                         </button>
                         <button class="btn-favorite" id="modal-favorite">
-                            <i class="far fa-heart"></i>
+                            <span class="modal-heart">🤍</span>
                         </button>
                     </div>
                 </div>
