@@ -27,17 +27,30 @@ A modern, responsive anime streaming platform gallery built with HTML, CSS, and 
 
 ## 🎭 Anime Collection
 
-Currently featuring 9 popular anime series:
+Currently featuring **15 popular anime series** across multiple genres:
 
-1. **Naruto** (Action) - Ninja adventure series
-2. **Attack on Titan** (Action) - Dark fantasy survival
-3. **Demon Slayer** (Action) - Beautiful animation & emotional story
-4. **One Piece** (Comedy) - Pirate adventure
-5. **Jujutsu Kaisen** (Action) - Modern supernatural action
-6. **Death Note** (Drama) - Psychological thriller
-7. **Tokyo Ghoul** (Drama) - Dark urban fantasy
-8. **My Hero Academia** (Fantasy) - Superhero academy
-9. **Lookism** (Drama) - Body-swcoming drama
+### 🗡️ Action (7)
+- **Naruto** - Ninja adventure series
+- **Attack on Titan** - Dark fantasy survival
+- **Demon Slayer** - Beautiful animation & emotional story
+- **Jujutsu Kaisen** - Modern supernatural action
+- **Tokyo Revengers** - Time-traveling gang story
+- **Windbreaker** - Delinquent school action
+- **Blue Lock** - High-intensity soccer anime
+
+### 😂 Comedy (2)
+- **One Piece** - Pirate adventure comedy
+- **Haikyu!!** - Volleyball sports comedy
+
+### 🎭 Drama (5)
+- **Death Note** - Psychological thriller
+- **Tokyo Ghoul** - Dark urban fantasy
+- **Lookism** - Body-swapping drama
+- **Vinland Saga** - Viking historical epic
+- **Monster** - Psychological thriller
+
+### ✨ Fantasy (1)
+- **My Hero Academia** - Superhero academy
 
 ## 🚀 Getting Started
 

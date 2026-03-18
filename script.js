@@ -71,6 +71,54 @@ const animeData = [
         poster: "https://picsum.photos/seed/lookism/300/450",
         description: "Daniel Park, an overweight high school student, wakes up one day in a new body that's handsome, athletic, and popular. A story about self-acceptance, bullying, and the true meaning of beauty.",
         trailer: "https://www.youtube.com/watch?v=Hk2mCq7W0qU"
+    },
+    {
+        id: 10,
+        title: "Tokyo Revengers",
+        genre: "action",
+        poster: "https://picsum.photos/seed/tokyorevengers/300/450",
+        description: "Takemichi Hanagaki travels back in time to his middle school days to save his girlfriend and change the future. A time-traveling gang story about redemption and second chances.",
+        trailer: "https://www.youtube.com/watch?v=O6zB9qJhQW0"
+    },
+    {
+        id: 11,
+        title: "Vinland Saga",
+        genre: "drama",
+        poster: "https://picsum.photos/seed/vinlandsaga/300/450",
+        description: "Thorfinn, a young Viking warrior, seeks revenge while exploring themes of peace, violence, and the true meaning of strength. An epic historical drama set in the Viking Age.",
+        trailer: "https://www.youtube.com/watch?v=2rRz5oV2qX8"
+    },
+    {
+        id: 12,
+        title: "Monster",
+        genre: "drama",
+        poster: "https://picsum.photos/seed/monster/300/450",
+        description: "Dr. Kenzo Tenma pursues a former patient who has become a dangerous psychopath. A psychological thriller exploring morality, justice, and the nature of evil.",
+        trailer: "https://www.youtube.com/watch?v=8jP2jJ3YQ3A"
+    },
+    {
+        id: 13,
+        title: "Windbreaker",
+        genre: "action",
+        poster: "https://picsum.photos/seed/windbreaker/300/450",
+        description: "Haruka Sakura transfers to Furin High School, known as the strongest delinquent school. A story of friendship, fights, and finding your place in the world.",
+        trailer: "https://www.youtube.com/watch?v=9xL2jJ8YQ4M"
+    },
+    {
+        id: 14,
+        title: "Blue Lock",
+        genre: "action",
+        poster: "https://picsum.photos/seed/bluelock/300/450",
+        description: "300 high school strikers compete in a ruthless training program to create Japan's greatest striker. A high-intensity sports anime about ego and becoming the best.",
+        trailer: "https://www.youtube.com/watch?v=7f6Tj5pJ8Xk"
+    },
+    {
+        id: 15,
+        title: "Haikyu!!",
+        genre: "comedy",
+        poster: "https://picsum.photos/seed/haikyu/300/450",
+        description: "Shoyo Hinata, despite his short stature, dreams of becoming a great volleyball player. An inspiring sports anime about teamwork, determination, and reaching for your dreams.",
+        trailer: "https://www.youtube.com/watch?v=3jQrN5y8_5I"
     }
 ];
 
