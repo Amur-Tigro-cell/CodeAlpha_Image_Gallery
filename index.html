@@ -3,174 +3,309 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AniGallery 🎬 - Anime Streaming Platform</title>
+    <title>AniGallery 🎬 - Anime Slideshow Experience</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
-    <!-- Sticky Navbar -->
-    <header class="navbar">
-        <div class="navbar-container">
-            <div class="logo">
-                <i class="fas fa-play-circle"></i>
-                <span>AniGallery 🎬</span>
-            </div>
-            
-            <!-- Search Bar -->
-            <div class="search-container">
-                <div class="search-bar">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="search" placeholder="Search anime...">
-                </div>
-            </div>
-            
-            <!-- Theme Toggle -->
-            <div class="theme-toggle">
-                <i class="fas fa-moon" id="theme-icon"></i>
-            </div>
+<body class="dark-theme">
+    <!-- Full Screen Anime Slideshow -->
+    <div class="slideshow-container">
+        <!-- Background Effects -->
+        <div class="particle-field">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
         </div>
-    </header>
-
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Hero Section -->
-        <section class="hero">
-            <h1 class="hero-title">Discover Amazing Anime</h1>
-            <p class="hero-subtitle">Stream your favorite anime</p>
-        </section>
-
-        <!-- Horizontal Slider Sections -->
-        <section class="slider-section">
-            <div class="section-header">
-                <h2 class="section-title">🔥 Trending</h2>
-                <div class="slider-controls">
-                    <button class="slider-btn prev" data-section="trending">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <button class="slider-btn next" data-section="trending">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="slider-container" id="trending-slider">
-                <div class="slider-track">
-                    <!-- Anime cards will be dynamically inserted here -->
-                </div>
-            </div>
-        </section>
-
-        <section class="slider-section">
-            <div class="section-header">
-                <h2 class="section-title">� Action</h2>
-                <div class="slider-controls">
-                    <button class="slider-btn prev" data-section="action">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <button class="slider-btn next" data-section="action">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="slider-container" id="action-slider">
-                <div class="slider-track">
-                    <!-- Anime cards will be dynamically inserted here -->
-                </div>
-            </div>
-        </section>
-
-        <section class="slider-section">
-            <div class="section-header">
-                <h2 class="section-title">😂 Comedy</h2>
-                <div class="slider-controls">
-                    <button class="slider-btn prev" data-section="comedy">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <button class="slider-btn next" data-section="comedy">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="slider-container" id="comedy-slider">
-                <div class="slider-track">
-                    <!-- Anime cards will be dynamically inserted here -->
-                </div>
-            </div>
-        </section>
-
-        <section class="slider-section">
-            <div class="section-header">
-                <h2 class="section-title">🎭 Drama</h2>
-                <div class="slider-controls">
-                    <button class="slider-btn prev" data-section="drama">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <button class="slider-btn next" data-section="drama">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="slider-container" id="drama-slider">
-                <div class="slider-track">
-                    <!-- Anime cards will be dynamically inserted here -->
-                </div>
-            </div>
-        </section>
-
-        <section class="slider-section">
-            <div class="section-header">
-                <h2 class="section-title">✨ Fantasy</h2>
-                <div class="slider-controls">
-                    <button class="slider-btn prev" data-section="fantasy">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <button class="slider-btn next" data-section="fantasy">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="slider-container" id="fantasy-slider">
-                <div class="slider-track">
-                    <!-- Anime cards will be dynamically inserted here -->
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Modal -->
-    <div class="modal-overlay" id="modal-overlay" onclick="if(event.target === this) closeModal()">
-        <div class="modal" id="modal">
-            <button class="modal-close" id="modal-close" onclick="closeModal()">
-                <i class="fas fa-times"></i>
-            </button>
-            
-            <div class="modal-content">
-                <div class="modal-poster">
-                    <img id="modal-poster" src="" alt="">
-                </div>
-                <div class="modal-info">
-                    <h2 id="modal-title"></h2>
-                    <div class="modal-genres" id="modal-genres"></div>
-                    <p id="modal-description"></p>
-                    <div class="modal-actions">
-                        <button class="btn-trailer" id="btn-trailer">
-                            <i class="fas fa-play"></i>
-                            ▶ Watch Trailer
-                        </button>
-                        <button class="btn-favorite" id="modal-favorite">
-                            <span class="modal-heart">🤍</span>
+        
+        <!-- Main Slideshow -->
+        <div class="slideshow">
+            <div class="slide active" data-anime-id="1">
+                <img src="https://i.pinimg.com/originals/45/bb/e4/45bbe4b282f49903338cb71c03ed0166.png" alt="Naruto" class="slide-image">
+                <div class="slide-overlay"></div>
+                <div class="slide-content">
+                    <h1 class="slide-title">Naruto</h1>
+                    <p class="slide-description">Follow Naruto Uzumaki, a young ninja with a dream to become the strongest ninja and leader of his village.</p>
+                    <div class="slide-actions">
+                        <button class="slide-btn primary" onclick="watchTrailer(1)">
+                            <i class="fas fa-play"></i> Watch Trailer
                         </button>
                     </div>
                 </div>
             </div>
-
-            <!-- Navigation Arrows -->
-            <button class="modal-nav modal-prev" id="modal-prev">
-                <i class="fas fa-chevron-left"></i>
-            </button>
-            <button class="modal-nav modal-next" id="modal-next">
-                <i class="fas fa-chevron-right"></i>
-            </button>
+            
+            <div class="slide" data-anime-id="2">
+                <img src="https://peeekaboo.in/cdn/shop/files/AOT.jpg?v=1686310020" alt="Attack on Titan" class="slide-image">
+                <div class="slide-overlay"></div>
+                <div class="slide-content">
+                    <h1 class="slide-title">Attack on Titan</h1>
+                    <p class="slide-description">Humanity fights for survival against giant humanoid Titans that devour humans in this dark, intense story.</p>
+                    <div class="slide-actions">
+                        <button class="slide-btn primary" onclick="watchTrailer(2)">
+                            <i class="fas fa-play"></i> Watch Trailer
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide" data-anime-id="3">
+                <img src="https://i.pinimg.com/originals/ef/ea/ce/efeace5c4179d1e16d0a0636dae0a31b.jpg" alt="Demon Slayer" class="slide-image">
+                <div class="slide-overlay"></div>
+                <div class="slide-content">
+                    <h1 class="slide-title">Demon Slayer</h1>
+                    <p class="slide-description">Tanjiro Kamado becomes a demon slayer to save his sister and avenge his family with beautiful animation.</p>
+                    <div class="slide-actions">
+                        <button class="slide-btn primary" onclick="watchTrailer(3)">
+                            <i class="fas fa-play"></i> Watch Trailer
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide" data-anime-id="4">
+                <img src="https://i.pinimg.com/originals/48/9d/af/489daf7c183b3b8e512fd413011658e6.jpg" alt="One Piece" class="slide-image">
+                <div class="slide-overlay"></div>
+                <div class="slide-content">
+                    <h1 class="slide-title">One Piece</h1>
+                    <p class="slide-description">Monkey D. Luffy and his pirate crew search for the ultimate treasure, One Piece. An adventurous tale of friendship, dreams, and epic sea battles.</p>
+                    <div class="slide-actions">
+                        <button class="slide-btn primary" onclick="watchTrailer(4)">
+                            <i class="fas fa-play"></i> Watch Trailer
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide" data-anime-id="5">
+                <img src="https://i.pinimg.com/originals/75/4b/66/754b66e22ab4fdbd2927a44c9b6fa07b.jpg" alt="Jujutsu Kaisen" class="slide-image">
+                <div class="slide-overlay"></div>
+                <div class="slide-content">
+                    <h1 class="slide-title">Jujutsu Kaisen</h1>
+                    <p class="slide-description">Yuji Itadori enters the world of jujutsu sorcery to fight cursed spirits. Modern action with stunning visuals and complex character dynamics.</p>
+                    <div class="slide-actions">
+                        <button class="slide-btn primary" onclick="watchTrailer(5)">
+                            <i class="fas fa-play"></i> Watch Trailer
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide" data-anime-id="6">
+                <img src="https://tse3.mm.bing.net/th/id/OIP.k5NcGEpSwdKwqs_eFNnBGwHaG1?pid=Api&h=220&P=0" alt="Death Note" class="slide-image">
+                <div class="slide-overlay"></div>
+                <div class="slide-content">
+                    <h1 class="slide-title">Death Note</h1>
+                    <p class="slide-description">Light Yagami finds a notebook that can kill anyone whose name is written in it. A psychological thriller about justice, morality, and the corrupting nature of power.</p>
+                    <div class="slide-actions">
+                        <button class="slide-btn primary" onclick="watchTrailer(6)">
+                            <i class="fas fa-play"></i> Watch Trailer
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide" data-anime-id="7">
+                <img src="https://i.pinimg.com/originals/d5/b0/0a/d5b00a295f541bcb78bb082f09ec969c.png" alt="Tokyo Ghoul" class="slide-image">
+                <div class="slide-overlay"></div>
+                <div class="slide-content">
+                    <h1 class="slide-title">Tokyo Ghoul</h1>
+                    <p class="slide-description">Ken Kaneki becomes half-ghoul after a deadly encounter. A dark exploration of identity, humanity, and the struggle between two worlds.</p>
+                    <div class="slide-actions">
+                        <button class="slide-btn primary" onclick="watchTrailer(7)">
+                            <i class="fas fa-play"></i> Watch Trailer
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide" data-anime-id="8">
+                <img src="https://i.pinimg.com/736x/d7/ab/5d/d7ab5d4cc2bd3e633fc5271b2ba932b4.jpg" alt="My Hero Academia" class="slide-image">
+                <div class="slide-overlay"></div>
+                <div class="slide-content">
+                    <h1 class="slide-title">My Hero Academia</h1>
+                    <p class="slide-description">In a world where superpowers are common, Izuku Midoriya dreams of becoming a hero despite being born without powers. An inspiring story of courage and determination.</p>
+                    <div class="slide-actions">
+                        <button class="slide-btn primary" onclick="watchTrailer(8)">
+                            <i class="fas fa-play"></i> Watch Trailer
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide" data-anime-id="9">
+                <img src="https://i.pinimg.com/originals/64/7f/25/647f259d97fcbb00244d1d4d9bb60a0c.png" alt="Lookism" class="slide-image">
+                <div class="slide-overlay"></div>
+                <div class="slide-content">
+                    <h1 class="slide-title">Lookism</h1>
+                    <p class="slide-description">Daniel Park, an overweight high school student, wakes up one day in a new body that's handsome, athletic, and popular. A story about self-acceptance, bullying, and the true meaning of beauty.</p>
+                    <div class="slide-actions">
+                        <button class="slide-btn primary" onclick="watchTrailer(9)">
+                            <i class="fas fa-play"></i> Watch Trailer
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide" data-anime-id="10">
+                <img src="https://m.media-amazon.com/images/I/61c4Jy9cT0L._AC_.jpg" alt="Tokyo Revengers" class="slide-image">
+                <div class="slide-overlay"></div>
+                <div class="slide-content">
+                    <h1 class="slide-title">Tokyo Revengers</h1>
+                    <p class="slide-description">Takemichi Hanagaki travels back in time to his middle school days to save his girlfriend and change the future. A time-traveling gang story about redemption and second chances.</p>
+                    <div class="slide-actions">
+                        <button class="slide-btn primary" onclick="watchTrailer(10)">
+                            <i class="fas fa-play"></i> Watch Trailer
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide" data-anime-id="11">
+                <img src="https://i.pinimg.com/originals/4d/24/cf/4d24cf501b4aac76ca5969c2e9474fb8.jpg" alt="Vinland Saga" class="slide-image">
+                <div class="slide-overlay"></div>
+                <div class="slide-content">
+                    <h1 class="slide-title">Vinland Saga</h1>
+                    <p class="slide-description">Thorfinn, a young Viking warrior, seeks revenge while exploring themes of peace, violence, and the true meaning of strength. An epic historical drama set in the Viking Age.</p>
+                    <div class="slide-actions">
+                        <button class="slide-btn primary" onclick="watchTrailer(11)">
+                            <i class="fas fa-play"></i> Watch Trailer
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide" data-anime-id="12">
+                <img src="https://i.pinimg.com/originals/7d/67/6c/7d676c1fbc77d3e6e89850fc69c2ba4f.png" alt="Monster" class="slide-image">
+                <div class="slide-overlay"></div>
+                <div class="slide-content">
+                    <h1 class="slide-title">Monster</h1>
+                    <p class="slide-description">Dr. Kenzo Tenma pursues a former patient who has become a dangerous psychopath. A psychological thriller exploring morality, justice, and the nature of evil.</p>
+                    <div class="slide-actions">
+                        <button class="slide-btn primary" onclick="watchTrailer(12)">
+                            <i class="fas fa-play"></i> Watch Trailer
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide" data-anime-id="13">
+                <img src="https://static.zerochan.net/Wind.Breaker.full.4140750.jpg" alt="Windbreaker" class="slide-image">
+                <div class="slide-overlay"></div>
+                <div class="slide-content">
+                    <h1 class="slide-title">Windbreaker</h1>
+                    <p class="slide-description">Haruka Sakura transfers to Furin High School, known as the strongest delinquent school. A story of friendship, fights, and finding your place in the world.</p>
+                    <div class="slide-actions">
+                        <button class="slide-btn primary" onclick="watchTrailer(13)">
+                            <i class="fas fa-play"></i> Watch Trailer
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide" data-anime-id="14">
+                <img src="https://i.etsystatic.com/39794910/r/il/e6d6d1/5206118598/il_1080xN.5206118598_a6no.jpg" alt="Blue Lock" class="slide-image">
+                <div class="slide-overlay"></div>
+                <div class="slide-content">
+                    <h1 class="slide-title">Blue Lock</h1>
+                    <p class="slide-description">300 high school strikers compete in a ruthless training program to create Japan's greatest striker. A high-intensity sports anime about ego and becoming the best.</p>
+                    <div class="slide-actions">
+                        <button class="slide-btn primary" onclick="watchTrailer(14)">
+                            <i class="fas fa-play"></i> Watch Trailer
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide" data-anime-id="15">
+                <img src="https://i.pinimg.com/originals/82/31/7b/82317b95770f7319f2b7e54f9f8fa4a7.jpg" alt="Haikyu!!" class="slide-image">
+                <div class="slide-overlay"></div>
+                <div class="slide-content">
+                    <h1 class="slide-title">Haikyu!!</h1>
+                    <p class="slide-description">Shoyo Hinata, despite his short stature, dreams of becoming a great volleyball player. An inspiring sports anime about teamwork, determination, and reaching for your dreams.</p>
+                    <div class="slide-actions">
+                        <button class="slide-btn primary" onclick="watchTrailer(15)">
+                            <i class="fas fa-play"></i> Watch Trailer
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide" data-anime-id="16">
+                <img src="https://4kwallpapers.com/images/wallpapers/solo-leveling-2560x1440-16126.jpg" alt="Solo Leveling" class="slide-image">
+                <div class="slide-overlay"></div>
+                <div class="slide-content">
+                    <h1 class="slide-title">Solo Leveling</h1>
+                    <p class="slide-description">Sung Jinwoo, the weakest hunter, gains the ability to level up and become the strongest. A thrilling action story about power and survival in a world of monsters.</p>
+                    <div class="slide-actions">
+                        <button class="slide-btn primary" onclick="watchTrailer(16)">
+                            <i class="fas fa-play"></i> Watch Trailer
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide" data-anime-id="17">
+                <img src="https://wallpapercave.com/wp/wp11333332.jpg" alt="Bleach" class="slide-image">
+                <div class="slide-overlay"></div>
+                <div class="slide-content">
+                    <h1 class="slide-title">Bleach</h1>
+                    <p class="slide-description">Ichigo Kurosaki becomes a Soul Reaper, protecting the living world from evil spirits. An epic supernatural battle story.</p>
+                    <div class="slide-actions">
+                        <button class="slide-btn primary" onclick="watchTrailer(17)">
+                            <i class="fas fa-play"></i> Watch Trailer
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide" data-anime-id="18">
+                <img src="https://www.themoviedb.org/t/p/original/uJT3CmfSy9R1T2vCVpDWhNJXhPX.jpg" alt="Dragon Ball Z" class="slide-image">
+                <div class="slide-overlay"></div>
+                <div class="slide-content">
+                    <h1 class="slide-title">Dragon Ball Z</h1>
+                    <p class="slide-description">Goku and his friends defend Earth from powerful villains. The legendary action anime that defined a generation.</p>
+                    <div class="slide-actions">
+                        <button class="slide-btn primary" onclick="watchTrailer(18)">
+                            <i class="fas fa-play"></i> Watch Trailer
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide" data-anime-id="19">
+                <img src="https://wallpapers.com/images/hd/fullmetal-alchemist-brotherhood-action-poster-0tvvnvos36llm4yx.jpg" alt="Full Metal Alchemist Brotherhood" class="slide-image">
+                <div class="slide-overlay"></div>
+                <div class="slide-content">
+                    <h1 class="slide-title">Full Metal Alchemist Brotherhood</h1>
+                    <p class="slide-description">Two brothers search for the Philosopher's Stone to restore their bodies after a failed alchemical experiment. An epic tale of sacrifice, redemption, and the true meaning of humanity.</p>
+                    <div class="slide-actions">
+                        <button class="slide-btn primary" onclick="watchTrailer(19)">
+                            <i class="fas fa-play"></i> Watch Trailer
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide" data-anime-id="20">
+                <img src="https://wallpapercave.com/wp/wp10228912.jpg" alt="One Punch Man" class="slide-image">
+                <div class="slide-overlay"></div>
+                <div class="slide-content">
+                    <h1 class="slide-title">One Punch Man</h1>
+                    <p class="slide-description">Saitama, a hero who can defeat any enemy with a single punch, searches for a worthy opponent. A hilarious and action-packed parody of superhero tropes.</p>
+                    <div class="slide-actions">
+                        <button class="slide-btn primary" onclick="watchTrailer(20)">
+                            <i class="fas fa-play"></i> Watch Trailer
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
